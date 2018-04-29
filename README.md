@@ -6,10 +6,10 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 ## Requirements :
 - `python3`
 - `python-pip`
-- [`firefox`](https://www.mozilla.org/fr/firefox/)
+- [`firefox`](https://www.mozilla.org/fr/firefox/) **or** [`google-chrome-stable`](https://www.google.com/chrome/) **or** [`chromium-browser`](https://www.chromium.org/Home)
 - Python module [`beautifulsoup4`](https://pypi.org/project/beautifulsoup4/)
 - Python module [`selenium`](https://pypi.org/project/selenium/)
-- [`geckodriver`](https://github.com/mozilla/geckodriver)
+- [`geckodriver`](https://github.com/mozilla/geckodriver)(_for Firefox users_) **or** [`chromedriver`](https://sites.google.com/a/chromium.org/chromedriver/)(_for Chrome/Chromium users_)
 - GMail account with ["Less secure apps"](https://myaccount.google.com/lesssecureapps) option enabled
 
 ## Usage :
@@ -17,5 +17,4 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 - Then you'll be able to run `./check_mark_campus_booster.py`
 
 ## Status :
-_Only work for A.Sc.1 at the moment_  
-_Only works with firefox at the moment_
+_Only work for A.Sc.1 at the moment_
