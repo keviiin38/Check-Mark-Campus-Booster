@@ -14,17 +14,22 @@ SUPINFO_PASSWORD = ""
 GMAIL_ADDRESS = ""
 GMAIL_PASSWORD = ""
 RECEIVER_ADDRESS = ""
+BROWSER = ""
 
-if "" in (IDBOOSTER, SUPINFO_PASSWORD, GMAIL_ADDRESS, GMAIL_PASSWORD, RECEIVER_ADDRESS):
+if "" in (IDBOOSTER, SUPINFO_PASSWORD, GMAIL_ADDRESS, GMAIL_PASSWORD, RECEIVER_ADDRESS, BROWSER):
     print("Please run INSTALL.sh first !")
     exit(1)
 
 
 def get_soup():
-    options = webdriver.FirefoxOptions()
-    options.add_argument("--headless")
-
-    browser = webdriver.Firefox(firefox_options=options)
+    if BROWSER == "firefox":
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")
+        browser = webdriver.Firefox(firefox_options=options)
+    elif BROWSER in ("chrome", "chromium"):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        browser = webdriver.Chrome(chrome_options=options)
 
     browser.get("https://campus-booster.net/Booster/v2/Academic/Cursus.aspx")
 
@@ -103,7 +108,7 @@ def get_mark_list(soup):
     return mark_list, name_list
 
 
-def format_mark_list(mark_list):
+def format_mark_list(mark_list, name_list):
     for i in range(len(mark_list)):
         print("===", name_list[i], "===")
         if mark_list[i] == "nothing":
