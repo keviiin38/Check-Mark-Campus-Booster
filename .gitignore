@@ -1,0 +1,9 @@
+# Log files
+*.log
+
+# Custom IDBOOSTER_SUPINFO_MARKS
+*_SUPINFO_MARKS
+!IDBOOSTER_SUPINFO_MARKS
+
+# Python cache folder
+__pycache__

@@ -164,7 +164,7 @@ def main():
     soup = get_soup()
     mark_list, name_list = get_mark_list(soup)
     if check_new_mark(mark_list):
-        print("New mark !")
+        print("New mark(s) !")
         send_mail(mark_list, name_list)
         print("Mail sent !")
         file = open(IDBOOSTER + "_SUPINFO_MARKS", "wb")
