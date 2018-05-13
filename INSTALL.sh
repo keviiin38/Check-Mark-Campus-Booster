@@ -140,9 +140,11 @@ esac
 echo -e "All requirements installed !\n"
 
 read -p "ID Booster : " IDBOOSTER
-read -p "Campus Booster password : " SUPINFO_PASSWORD
+read -s -p "Campus Booster password : " SUPINFO_PASSWORD
+echo ''
 read -p "GMail address : " GMAIL_ADDRESS
-read -p "GMail password : " GMAIL_PASSWORD
+read -s -p "GMail password : " GMAIL_PASSWORD
+echo ''
 read -p "Receiver address : " RECEIVER_ADDRESS
 
 sed -i "s/IDBOOSTER =.*/IDBOOSTER = \"$IDBOOSTER\"/" check_mark_campus_booster.py
