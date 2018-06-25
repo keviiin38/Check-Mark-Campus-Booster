@@ -8,7 +8,11 @@ case "$BROWSER" in
     *) exit 1;;
 esac
 
-if ( ! dpkg -s python-pip &> /dev/null ); then
+if dpkg -s python-pip &> /dev/null; then
+    PIP_VERSION="pip"
+elif dpkg -s python3-pip &> /dev/null; then
+    PIP_VERSION="pip3"
+else
     echo "Please install python-pip"
     read -p "Would you like to run the install now (You'll be prompted for the root password) ? (Yes/No) : " answer
     case "$answer" in
@@ -16,14 +20,15 @@ if ( ! dpkg -s python-pip &> /dev/null ); then
         [nN] | [nN][oO]) exit 1 ;;
         *) exit 1;;
     esac
+    PIP_VERSION="pip"
     unset answer
 fi
 
 if ( ! python3 -c "import bs4" &> /dev/null); then
-    echo "Please install Python module BeautifulSoup4"
+    echo "Please install Python module beautifulsoup4"
     read -p "Would you like to run the install now ? (Yes/No) : " answer
     case "$answer" in
-        [yY] | [yY][eE][sS]) pip install --user beautifulsoup4 && echo -e "\nbeautifulsoup4 installed !\n" ;;
+        [yY] | [yY][eE][sS]) $PIP_VERSION install --user beautifulsoup4 && echo -e "\nbeautifulsoup4 installed !\n" ;;
         [nN] | [nN][oO]) exit 1 ;;
         *) exit 1;;
     esac
@@ -34,7 +39,7 @@ if ( ! python3 -c "import selenium" &> /dev/null); then
     echo "Please install Python module selenium"
     read -p "Would you like to run the install now ? (Yes/No) : " answer
     case "$answer" in
-        [yY] | [yY][eE][sS]) pip install --user selenium && echo -e "\nselenium installed !\n" ;;
+        [yY] | [yY][eE][sS]) $PIP_VERSION install --user selenium && echo -e "\nselenium installed !\n" ;;
         [nN] | [nN][oO]) exit 1 ;;
         *) exit 1;;
     esac
@@ -93,11 +98,15 @@ case "$BROWSER" in
             case "$answer" in
                 [yY] | [yY][eE][sS])
                     cd /tmp
-                    wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
-                    tar -zxvf geckodriver-v0.20.1-linux64.tar.gz &> /dev/null
+                    wget https://github.com$(curl -sL https://github.com/mozilla/geckodriver/releases/latest | grep 'linux64' | head -1 | cut -d '"' -f 2) -O geckodriver-linux64.tar.gz
+                    tar -zxvf geckodriver-linux64.tar.gz &> /dev/null
                     echo
                     su -c "mv geckodriver /usr/bin/geckodriver" root
-                    rm geckodriver-v0.20.1-linux64.tar.gz
+                    if [ $? -eq 1 ]; then
+                        rm geckodriver-linux64.tar.gz && rm geckodriver
+                        exit 1
+                    fi
+                    rm geckodriver-linux64.tar.gz
                     echo -e "\ngeckodriver installed !\n"
                     cd - &> /dev/null ;;
                 [nN] | [nN][oO]) exit 1 ;;
@@ -118,12 +127,12 @@ case "$BROWSER" in
                         rm chromedriver_linux64.zip
                     fi
                     echo
-                    wget https://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip
+                    wget "https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip"
                     echo
                     unzip chromedriver_linux64.zip &> /dev/null
                     su -c "mv chromedriver /usr/bin/chromedriver" root
                     if [ $? -eq 1 ]; then
-                        rm chromedriver_linux64.zip
+                        rm chromedriver_linux64.zip && rm chromedriver
                         exit 1
                     fi
                     rm chromedriver_linux64.zip
@@ -158,6 +167,6 @@ IDBOOSTER+="_SUPINFO_MARKS"
 
 cp IDBOOSTER_SUPINFO_MARKS $IDBOOSTER
 
-unset IDBOOSTER SUPINFO_PASSWORD GMAIL_ADDRESS GMAIL_PASSWORD RECEIVER_ADDRESS BROWSER
+unset PIP_VERSION IDBOOSTER SUPINFO_PASSWORD GMAIL_ADDRESS GMAIL_PASSWORD RECEIVER_ADDRESS BROWSER
 
 echo -e "\nInstall finished !"
