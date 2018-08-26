@@ -5,7 +5,8 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 
 ## Requirements :
 - `python3`
-- `python-pip`
+- `python3-pip`
+- `python3-venv`
 - [`firefox`](https://www.mozilla.org/fr/firefox/) **or** [`google-chrome-stable`](https://www.google.com/chrome/) **or** [`chromium-browser`](https://www.chromium.org/Home)
 - Python module [`beautifulsoup4`](https://pypi.org/project/beautifulsoup4/)
 - Python module [`selenium`](https://pypi.org/project/selenium/)
