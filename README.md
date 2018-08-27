@@ -1,4 +1,4 @@
-# Check-Mark-Campus-Booster
+<h1 align="center">Check-Mark-Campus-Booster</h1>
 
 ## Synopsis :
 Log's into your [Campus Booster](https://campus-booster.net) page, check if new marks were added since last execution, send you an email if something were added !
@@ -18,4 +18,6 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 - Then you'll be able to run `./check_mark_campus_booster.py`
 
 ## Status :
+_Only work on UNIX based systems at the moment_
+
 _Only work for A.Sc.1 at the moment_
