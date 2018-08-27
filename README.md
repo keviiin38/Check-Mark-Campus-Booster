@@ -1,4 +1,4 @@
-<h1 align="center">Check-Mark-Campus-Booster</h1>
+<p align="center"><img src="https://raw.githubusercontent.com/keviiin38/Check-Mark-Campus-Booster/master/check-mark-campus-booster-logo.png"></p>
 
 ## Synopsis :
 Log's into your [Campus Booster](https://campus-booster.net) page, check if new marks were added since last execution, send you an email if something were added !
