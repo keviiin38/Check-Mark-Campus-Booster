@@ -20,10 +20,22 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 - GMail account with ["Less secure apps"](https://myaccount.google.com/lesssecureapps) option enabled
 
 ## Usage :
-- First run `./INSTALL.sh`
+- First run `./INSTALL.sh` 
+> _See : [Installation](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Installation) for help !_
 - Then you'll be able to run `./check_mark_campus_booster.py`
+> _See : [Usage](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Usage) for help !_
 
 ## Status :
-_Only work on UNIX based systems at the moment_
+_Work at the moment for :_
 
-_Only work for A.Sc.1 at the moment_
+- [x] A.Sc.1
+- [ ] A.Sc.2
+- [ ] B.Sc.1
+- [ ] M.Sc.1
+- [ ] M.Sc.2
+  
+_Work at the moment on :_
+  
+- [ ] Windows
+- [x] Linux
+- [x] macOS
