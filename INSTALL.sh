@@ -174,4 +174,4 @@ else
 fi
 
 # Install finished
-echo -en "\n\e[32m[ OK ] Install finished !\n"; sleep 0.5
+echo -en "\n\e[32m[ OK ] Install finished !\e[0m\n"; sleep 0.5
