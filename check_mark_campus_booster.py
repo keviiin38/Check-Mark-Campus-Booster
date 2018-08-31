@@ -366,6 +366,12 @@ def build_mail_body(diff, new_mark_values_count):
         subject_code, mark_type, mark_value = diff[1][i][0], diff[1][i][1], diff[1][i][2]
         body_html += "<li><strong> " + "<span style='color:" + ("green" if float(mark_value) >= 10 else "red") + "'>"
         body_html += mark_value + "</span></strong>"
+
+        # Add the old mark if the mark's value changed
+        if diff[0][i][2] is not None:
+            body_html += " <em>(Old : <strong>" + "<span style='color:" + ("green" if float(diff[0][i][2]) >= 10 else "red")
+            body_html += "'>" + diff[0][i][2] + "</span></strong>)</em>"
+
         body_html += " at the<strong> " + mark_type
         body_html += " </strong>of<strong> " + subject_code + " </strong></li>"
     body_html = "<html><head><body>" + body_html + "</ul></body></head></html>"
