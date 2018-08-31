@@ -21,9 +21,6 @@ Or you can manually ask him to **`!check`** now.
 - Python module [`selenium`](https://pypi.org/project/selenium/)
 - Python module [`discord`](https://pypi.org/project/discord/)
 - [`geckodriver`](https://github.com/mozilla/geckodriver)(_for Firefox users_) **or** [`chromedriver`](https://sites.google.com/a/chromium.org/chromedriver/)(_for Chrome/Chromium users_)
-
-<br>
-
 - Discord **server**, **application**, **bot** and **token** &nbsp; -- &nbsp; Follow **[this](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)** ! &nbsp; -- &nbsp; _Thanks to [@reactiflux](https://github.com/reactiflux)_
 
 ## Usage :
