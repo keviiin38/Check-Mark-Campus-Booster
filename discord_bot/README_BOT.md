@@ -21,10 +21,10 @@ Or you can manually ask him to **`!check`** now.
 - Python module [`selenium`](https://pypi.org/project/selenium/)
 - Python module [`discord`](https://pypi.org/project/discord/)
 - [`geckodriver`](https://github.com/mozilla/geckodriver)(_for Firefox users_) **or** [`chromedriver`](https://sites.google.com/a/chromium.org/chromedriver/)(_for Chrome/Chromium users_)
-- Discord **server**, **application**, **bot** and **token** &nbsp; -- &nbsp; Follow **[this](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)** ! &nbsp; -- &nbsp; _Thanks to [@reactiflux](https://github.com/reactiflux)_
+- Discord **Bot Token** &nbsp; -- &nbsp; See : **[Discord Setup](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Discord-Bot#discord-setup-)**
 
 ## Usage :
-_Coming soon..._
+> Check the [Usage](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Discord-Bot#usage-) wiki page !
 
 ## Status :
 _Work at the moment for :_
