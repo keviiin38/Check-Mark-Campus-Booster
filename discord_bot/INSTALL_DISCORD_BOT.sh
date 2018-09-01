@@ -161,7 +161,7 @@ echo -en "\n\e[32m[ OK ] All requirements installed !\e[0m\n\n"; sleep 0.5
 read -p "ID Booster               : " IDBOOSTER
 read -s -p "Campus Booster password  : " SUPINFO_PASSWORD
 echo ''
-read -p "Discord Bot Token : " DISCORD_BOT_TOKEN
+read -p "Discord Bot Token        : " DISCORD_BOT_TOKEN
 
 # Replace all information in the python script
 sed -i "s/IDBOOSTER =.*/IDBOOSTER = \"$IDBOOSTER\"/" check_mark_campus_booster_discord_bot.py
