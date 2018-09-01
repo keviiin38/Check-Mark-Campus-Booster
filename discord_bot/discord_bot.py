@@ -28,7 +28,7 @@ TOKEN = ""
 client = discord.Client()
 
 
-def build_msg(message):
+def build_check_msg(message):
     # Start to check for new marks
     msg = cm.check_mark_campus_booster_discord_bot()
 
@@ -54,6 +54,15 @@ def build_msg(message):
     return msg
 
 
+def build_help_msg():
+    msg = "+-----------------------------------------------------------------+\n"
+    msg += "|   Check-Mark-Campus-Booster Discord Bot  -  Help    |\n"
+    msg += "+-----------------------------------------------------------------+\n\n"
+    msg += "Coming soon...\n"
+
+    return msg
+
+
 @client.event
 async def on_message(message):
     # We do not want the bot to reply to itself
@@ -65,22 +74,24 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     # Display the help message
-    if message.content.upper().startswith("!HELP"):
-        msg = "+-----------------------------------------------------------------+\n"
-        msg += "|   Check-Mark-Campus-Booster Discord Bot  -  Help    |\n"
-        msg += "+-----------------------------------------------------------------+\n\n"
-        msg += "Coming soon...\n"
+    elif message.content.upper().startswith("!HELP"):
+        msg = build_help_msg()
         await client.send_message(message.channel, msg)
 
     # Manually check for new marks
-    if message.content.upper().startswith("!CHECK"):
+    elif message.content.upper().startswith("!CHECK"):
         # Send a wait message
         msg = message.author.mention + ", I'll check now, please wait 30 sec for the result."
         await client.send_message(message.channel, msg)
 
-        msg = build_msg(message)
+        msg = build_check_msg(message)
 
         # Send the message with the result
+        await client.send_message(message.channel, msg)
+
+    # Private message that isn't listed above
+    elif message.channel.is_private:
+        msg = build_help_msg()
         await client.send_message(message.channel, msg)
 
 
