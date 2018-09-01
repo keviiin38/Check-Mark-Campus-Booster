@@ -2,7 +2,7 @@
 
 ---
 
-<p align="center"><img src="https://github.com/keviiin38/Check-Mark-Campus-Booster/blob/dev-discord-bot/discord_bot/discord-bot-python-logo-450x160.png"></p>
+<p align="center"><img src="https://github.com/keviiin38/Check-Mark-Campus-Booster/blob/master/discord_bot/discord-bot-python-logo-450x160.png"></p>
 
 ---
 
