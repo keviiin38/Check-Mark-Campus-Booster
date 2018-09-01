@@ -2,6 +2,10 @@
 
 ---
 
+<h3 align="center"><img src="https://github.com/keviiin38/Check-Mark-Campus-Booster/blob/dev-discord-bot/discord_bot/discord-bot-python-logo-450x160.png"><br>Click : <a href="https://github.com/keviiin38/Check-Mark-Campus-Booster/blob/dev-discord-bot/discord_bot/README_BOT.md">here !</a></h3>
+
+---
+
 <h3 align="center">Wiki page : <a href="https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki">here !</a></h3>
 
 ---
