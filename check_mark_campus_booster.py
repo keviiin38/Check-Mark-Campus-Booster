@@ -82,25 +82,27 @@ def get_soup():
             return (-1, browser[1])
 
         # Go to SUPINFO's Campus-Booster web page
-        browser.get("https://campus-booster.net/Booster/v2/Academic/Cursus.aspx")
+        browser.get("https://campus-booster.net")
         time.sleep(2)
 
         # Specify the IDBooster on the Campus-Booster home page
-        idbooster = browser.find_element_by_id("actor_login_university_openid1_openIdBox")
+        idbooster = browser.find_element_by_id("actor_login_siu_sso_oauth2_openIdBox")
         idbooster.send_keys(IDBOOSTER)
-        login_button = browser.find_element_by_id("actor_login_university_openid1_loginButton")
+        login_button = browser.find_element_by_id("actor_login_siu_sso_oauth2_loginButton")
         login_button.click()
         time.sleep(2)
 
         # Log in to SUPINFO's SSO
+        idbooster = browser.find_element_by_id("Id")
+        idbooster.send_keys(IDBOOSTER)
         password = browser.find_element_by_id("Password")
         password.send_keys(SUPINFO_PASSWORD)
-        login_button = browser.find_element_by_id("LoginButton")
+        login_button = browser.find_element_by_name("button")
         login_button.click()
         time.sleep(2)
 
         # Check for login success or failure
-        if browser.current_url == "https://id.supinfo.com/login.aspx?ReturnUrl=%2fdecide.aspx":
+        if browser.current_url.split("/")[2] == "sso.supinfo.com":
             raise Exception("Login to SUPINFO's SSO failed... Check the credentials and try again...")
 
         # Go to the Campus-Booster marks page
