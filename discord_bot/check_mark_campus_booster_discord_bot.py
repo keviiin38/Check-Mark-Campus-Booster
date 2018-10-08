@@ -87,8 +87,6 @@ def get_soup():
         time.sleep(2)
 
         # Log in to SUPINFO's SSO
-        idbooster = browser.find_element_by_id("Id")
-        idbooster.send_keys(IDBOOSTER)
         password = browser.find_element_by_id("Password")
         password.send_keys(SUPINFO_PASSWORD)
         login_button = browser.find_element_by_name("button")
