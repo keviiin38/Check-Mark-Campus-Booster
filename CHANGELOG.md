@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.1.1](https://github.com/keviiin38/Check-Mark-Campus-Booster/releases/tag/v2.1.1) - 13/01/2019
+### Added :
+* Support for various Linux distribution, not only Debian/Ubuntu
+* Support each cursus and not only A.Sc.1
+* Added security with file permissions at setup
+* [...]
+
+### Changed :
+* Discord bot version with above changes
+* Check for the latest cursus instead of a fixed one
+* [...]
+
 ## [v2.1](https://github.com/keviiin38/Check-Mark-Campus-Booster/releases/tag/v2.1) - 09/01/2018
 ### Added :
 * Logo for the new feature

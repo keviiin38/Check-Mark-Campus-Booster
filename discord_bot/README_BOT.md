@@ -27,13 +27,13 @@ Or you can manually ask him to **`!check`** now.
 > Check the [Usage](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Discord-Bot#usage-) wiki page !
 
 ## Status :
-_Work at the moment for :_
+_Work for :_
 
 - [x] A.Sc.1
-- [ ] A.Sc.2
-- [ ] B.Sc.1
-- [ ] M.Sc.1
-- [ ] M.Sc.2
+- [x] A.Sc.2
+- [x] B.Sc.1
+- [x] M.Sc.1
+- [x] M.Sc.2
   
 _Work at the moment on :_
   

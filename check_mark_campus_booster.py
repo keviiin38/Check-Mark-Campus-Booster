@@ -43,9 +43,11 @@ GMAIL_ADDRESS = ""
 GMAIL_PASSWORD = ""
 RECEIVER_ADDRESS = ""
 BROWSER = ""
+CURSUS = ""
+CURSUS_CODE = ""
 
 # Check for empty values in the required information
-if "" in (IDBOOSTER, SUPINFO_PASSWORD, GMAIL_ADDRESS, GMAIL_PASSWORD, RECEIVER_ADDRESS, BROWSER):
+if "" in (IDBOOSTER, SUPINFO_PASSWORD, GMAIL_ADDRESS, GMAIL_PASSWORD, RECEIVER_ADDRESS, BROWSER, CURSUS):
     print("Please run " + BOLD + "./INSTALL.sh" + RESET_COLOR + " first !")
     exit(1)
 
@@ -62,11 +64,11 @@ def init_browser():
         if BROWSER == "firefox":
             options = webdriver.FirefoxOptions()
             options.add_argument("--headless")
-            return webdriver.Firefox(firefox_options=options)
+            return webdriver.Firefox(options=options)
         elif BROWSER in ("chrome", "chromium"):
             options = webdriver.ChromeOptions()
             options.add_argument("--headless")
-            return webdriver.Chrome(chrome_options=options)
+            return webdriver.Chrome(options=options)
     except Exception as E:
         print(RED + "Error when initializing the browser...")
         print("Error information : " + RESET_COLOR + BOLD + str(E) + RESET_COLOR)
@@ -104,7 +106,15 @@ def get_soup():
             raise Exception("Login to SUPINFO's SSO failed... Check the credentials and try again...")
 
         # Go to the Campus-Booster marks page
-        browser.get("https://campus-booster.net/Booster/v2/Academic/Cursus.aspx#tab_cursus_174")
+        browser.get("https://campus-booster.net/Booster/v2/Academic/Cursus.aspx")
+        time.sleep(2)
+
+        # Find the latest cursus code on the page
+        global CURSUS_CODE
+        CURSUS_CODE = browser.find_element_by_xpath("//select[@name='ctl00$cphMain$rptCurriculums$ctl00$ddlCursus']/option[text()='{}']".format(CURSUS)).get_attribute("value")
+
+        # Go to the Campus-Booster marks page with the specific cursus code
+        browser.get("https://campus-booster.net/Booster/v2/Academic/Cursus.aspx#tab_" + CURSUS_CODE)
         time.sleep(2)
 
         # Get the soup from the web page
@@ -130,7 +140,7 @@ def get_subject_codes(soup):
             div_id = div.get("id")
 
             # Get all subject codes (ex: xADS, xLIF, xKWS, xCNA, etc...)
-            if div_id is not None and "cursus_174_subject" in div_id:
+            if div_id is not None and "{}_subject".format(CURSUS_CODE) in div_id:
                 subject_codes[div_id.split("_")[3]] = {}
 
         # Check for empty subject codes
@@ -153,24 +163,26 @@ def get_subjects(soup):
             return (-1, subjects[1])
 
         for div in soup.find_all("div", class_="panel-heading"):
-            # Get all information about each subject : name, code, ECTS and option
-            info = div.text.strip().replace("\n", "").replace("  ", "").split("(")
+            # Check if the div correspond to the right cursus
+            if "data-parent" in div.findChild("a").attrs and div.findChild("a")["data-parent"] == "#{}".format(CURSUS_CODE):
+                # Get all information about each subject : name, code, ECTS and option
+                info = div.text.strip().replace("\n", "").replace("  ", "").split("(")
 
-            # Skip all items that aren't names, codes and ECTS credits
-            if len(info) <= 1:
-                continue
+                # Skip all items that aren't names, codes and ECTS credits
+                if len(info) <= 1:
+                    continue
 
-            # Remove all the ")", the " ", and the "#" from the info list
-            info = [i.strip().replace(")", "").replace("#", "") for i in info]
+                # Remove all the ")", the " ", and the "#" from the info list
+                info = [i.strip().replace(")", "").replace("#", "") for i in info]
 
-            # Get only the number of ECTS credits
-            info[-1] = info[-1][info[-1].find("-") + 1]
+                # Get only the number of ECTS credits
+                info[-1] = info[-1][info[-1].find("-") + 1]
 
-            # Set option to True or False if the subject is an option or not
-            option = True if info[1] == "OPTION" else False
+                # Set option to True or False if the subject is an option or not
+                option = True if info[1] == "OPTION" else False
 
-            # Add the name of the subject, the number of ECTS credits and the if it's an option to the dictionary
-            subjects[info[-2]] = {"NAME": info[0], "ECTS": info[-1], "MARKS": {}, "OPTION": option}
+                # Add the name of the subject, the number of ECTS credits and the if it's an option to the dictionary
+                subjects[info[-2]] = {"NAME": info[0], "ECTS": info[-1], "MARKS": {}, "OPTION": option}
 
         return subjects
 
@@ -189,7 +201,7 @@ def get_marks(soup):
 
         for subject in subjects.keys():
             # Find all subjects and all marks with values and types for each
-            for div in soup.find_all("div", id=("cursus_174_subject_" + subject)):
+            for div in soup.find_all("div", id=("{}_subject_".format(CURSUS_CODE) + subject)):
                 if div.text.strip() == "No mark for the moment":
                     # Add None to the "MARKS" value if no mark for the moment
                     subjects[subject]["MARKS"] = None

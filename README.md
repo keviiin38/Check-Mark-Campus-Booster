@@ -30,13 +30,13 @@ Log's into your [Campus Booster](https://campus-booster.net) page, check if new 
 > _See : [Usage](https://github.com/keviiin38/Check-Mark-Campus-Booster/wiki/Usage) for help !_
 
 ## Status :
-_Work at the moment for :_
+_Work for :_
 
 - [x] A.Sc.1
-- [ ] A.Sc.2
-- [ ] B.Sc.1
-- [ ] M.Sc.1
-- [ ] M.Sc.2
+- [x] A.Sc.2
+- [x] B.Sc
+- [x] M.Sc.1
+- [x] M.Sc.2
   
 _Work at the moment on :_
   
