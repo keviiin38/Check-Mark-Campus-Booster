@@ -30,6 +30,26 @@ else
     echo -en "\e[32m[ OK ]\e[0m root privileges\n"; sleep 1
 fi
 
+# Check if curl is installed
+echo -en "[    ] curl installed\r"; sleep 0.5
+if command -v curl &> /dev/null; then
+    echo -en "\e[32m[ OK ]\e[0m curl installed\n"; sleep 0.5
+else
+    echo -en "\e[31m[FAIL]\e[0m curl installed\n"; sleep 0.5
+    echo "Please install curl"
+    exit 1
+fi
+
+# Check if wget is installed
+echo -en "[    ] wget installed\r"; sleep 0.5
+if command -v wget &> /dev/null; then
+    echo -en "\e[32m[ OK ]\e[0m wget installed\n"; sleep 0.5
+else
+    echo -en "\e[31m[FAIL]\e[0m wget installed\n"; sleep 0.5
+    echo "Please install wget"
+    exit 1
+fi
+
 cd /tmp
 
 # Remove existing chromedriver files

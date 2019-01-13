@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ##############################################################################
 #    Check-Mark-Campus-Booster - Get notified when a new mark is available   #
 #    Copyright (C) 2018 Kevin Delbegue                                       #
@@ -39,7 +40,7 @@ fi
 
 # Check if python3-pip is installed
 echo -en "[    ] python3-pip install\r"; sleep 0.5
-if dpkg -s python3-pip &> /dev/null; then
+if command -v pip3 &> /dev/null; then
     echo -en "\e[32m[ OK ]\e[0m python3-pip install\n"; sleep 0.5
 else
     echo -en "\e[31m[FAIL]\e[0m python3-pip install\n"; sleep 0.5
@@ -49,7 +50,7 @@ fi
 
 # Check if python3-venv is installed
 echo -en "[    ] python3-venv install\r"; sleep 0.5
-if dpkg -s python3-venv &> /dev/null; then
+if python3 -c "import venv" &> /dev/null; then
     echo -en "\e[32m[ OK ]\e[0m python3-venv install\n"; sleep 0.5
 else
     echo -en "\e[31m[FAIL]\e[0m python3-venv install\n"; sleep 0.5
@@ -143,15 +144,28 @@ esac
 echo -en "\n\e[32m[ OK ] All requirements installed !\e[0m\n\n"; sleep 0.5
 
 # Get all information for the python script
-read -p "ID Booster               : " IDBOOSTER
-read -s -p "Campus Booster password  : " SUPINFO_PASSWORD
+read -p "Cursus (A.Sc.1/A.Sc.2/B.Sc/M.Sc.1/M.Sc.2) : " CURSUS
+CURSUS=${CURSUS//./}
+CURSUS=${CURSUS,,}
+case "$CURSUS" in
+    "asc1") CURSUS="A.Sc.1";;
+    "asc2") CURSUS="A.Sc.2";;
+    "bsc") CURSUS="B.Sc";;
+    "msc1") CURSUS="M.Sc.1";;
+    "msc2") CURSUS="M.Sc.2";;
+    *) exit 1;;
+esac
+
+read -p "ID Booster                                : " IDBOOSTER
+read -s -p "Campus Booster password                   : " SUPINFO_PASSWORD
 echo ''
-read -p "GMail address            : " GMAIL_ADDRESS
-read -s -p "GMail password           : " GMAIL_PASSWORD
+read -p "GMail address                             : " GMAIL_ADDRESS
+read -s -p "GMail password                            : " GMAIL_PASSWORD
 echo ''
-read -p "Receiver address         : " RECEIVER_ADDRESS
+read -p "Receiver address                          : " RECEIVER_ADDRESS
 
 # Replace all information in the python script
+sed -i "s/CURSUS =.*/CURSUS = \"$CURSUS\"/" check_mark_campus_booster.py
 sed -i "s/IDBOOSTER =.*/IDBOOSTER = \"$IDBOOSTER\"/" check_mark_campus_booster.py
 sed -i "s/SUPINFO_PASSWORD =.*/SUPINFO_PASSWORD = \"$SUPINFO_PASSWORD\"/" check_mark_campus_booster.py
 sed -i "s/GMAIL_ADDRESS =.*/GMAIL_ADDRESS = \"$GMAIL_ADDRESS\"/" check_mark_campus_booster.py
@@ -160,18 +174,10 @@ sed -i "s/RECEIVER_ADDRESS =.*/RECEIVER_ADDRESS = \"$RECEIVER_ADDRESS\"/" check_
 sed -i "s/BROWSER = \".*/BROWSER = \"$BROWSER\"/" check_mark_campus_booster.py
 
 # Unset all used variables
-unset PIP_VERSION IDBOOSTER SUPINFO_PASSWORD GMAIL_ADDRESS GMAIL_PASSWORD RECEIVER_ADDRESS BROWSER
+unset PIP_VERSION IDBOOSTER SUPINFO_PASSWORD GMAIL_ADDRESS GMAIL_PASSWORD RECEIVER_ADDRESS BROWSER CURSUS
 
-# First run of the python script
-echo
-echo -en "[    ] check_mark_campus_booster.py first run\r"; sleep 0.5
-./check_mark_campus_booster.py
-if [ $? -eq 0 ]; then
-    echo -en "\e[32m[ OK ]\e[0m check_mark_campus_booster.py first run\n"; sleep 0.5
-else
-    echo -en "\e[31m[FAIL]\e[0m check_mark_campus_booster.py first run\n"; sleep 0.5
-    exit 1
-fi
+# Change permissions of the main file to block access to passwords and others
+chmod 700 check_mark_campus_booster.py
 
 # Install finished
 echo -en "\n\e[32m[ OK ] Install finished !\e[0m\n"; sleep 0.5
